@@ -16,6 +16,19 @@ class CreaturesController < ApplicationController
       render :new, status: :unprocessable_entity
     end
   end
+  
+  def edit
+    @creature = Creature.find(params[:id])
+  end
+
+  def update
+    @creature = Creature.find(params[:id])
+    if @creature.update(creature_params)
+      redirect_to creature_path(@creature)
+    else
+      render :edit
+    end
+  end
 
   private
 
@@ -23,3 +36,5 @@ class CreaturesController < ApplicationController
     params.require(:creature).permit(:name, :description, :available, :price)
   end
 end
+
+
