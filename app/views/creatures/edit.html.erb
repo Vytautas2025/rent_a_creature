@@ -1,0 +1,11 @@
+<h1>Edit Creature</h1>
+
+
+
+<%= simple_form_for @creature do |f| %>
+  <%= f.input :description %>
+  <%= f.input :available, as: :boolean, label: "Available?" %>
+  <%= f.input :price %>
+  <%= f.hidden_field :user_id, value: current_user.id %>
+  <%= f.button :submit, "Update Creature" %>
+<% end %>
