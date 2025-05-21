@@ -1,11 +1,11 @@
 class CreaturesController < ApplicationController
 
   skip_before_action :authenticate_user!, only: [:show, :home]
-  
+
   def home
     @creatures = Creature.where(available: true)
   end
-  
+
   def show
     @creature = Creature.find(params[:id])
   end
@@ -23,7 +23,7 @@ class CreaturesController < ApplicationController
       render :new, status: :unprocessable_entity
     end
   end
-  
+
   def edit
     @creature = Creature.find(params[:id])
   end
@@ -40,9 +40,6 @@ class CreaturesController < ApplicationController
   private
 
   def creature_params
-    params.require(:creature).permit(:name, :description, :available, :price)
-
+    params.require(:creature).permit(:name, :description, :available, :price, :image_url)
   end
 end
-
-
