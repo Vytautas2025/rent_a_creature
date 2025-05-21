@@ -1,9 +1,79 @@
-
 <div class="container my-3">
+  <div class="row">
+    <div class="col-md-8">
+      <div class="card mb-4">
+        <div class="card-body">
+          <h1 class="card-title"><%= @creature.name %></h1>
 
-  <h1><%= @creature.name %></h1>
-  <h2><%= @creature.description %></h2>
-  <p><%= @creature.available %></p>
-  <p><%= @creature.price %></p>
+          <% if @creature.image_url.present? %>
+            <%= image_tag @creature.image_url, class: "img-fluid my-3 card-image" %>
+          <% end %>
 
+          <h4>Description:</h4>
+          <p class="card-text"><%= @creature.description %></p>
+
+          <p>
+            <strong>Availability:</strong>
+            <span class="badge <%= @creature.available ? 'bg-success' : 'bg-danger' %>">
+              <%= @creature.available ? 'Available' : 'Not Available' %>
+            </span>
+          </p>
+
+          <p class="card-text"><strong>Price:</strong> $<%= @creature.price %> per day</p>
+
+          <% if @creature.user == current_user %>
+            <div class="mt-3">
+              <%= link_to "Edit Creature", edit_creature_path(@creature), class: "btn btn-warning" %>
+              <%= link_to "Manage Booking Requests", manage_bookings_creature_path(@creature), class: "btn btn-info" %>
+            </div>
+          <% elsif user_signed_in? && @creature.available %>
+            <div class="mt-3">
+              <%= link_to "Book This Creature", book_creature_path(@creature), class: "btn btn-primary" %>
+            </div>
+          <% elsif user_signed_in? %>
+            <div class="alert alert-warning mt-3">This creature is currently not available for booking.</div>
+          <% else %>
+            <div class="alert alert-info mt-3">Please <%= link_to "sign in", new_user_session_path %> to book this creature.</div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-header">
+          <h5>Owner Information</h5>
+        </div>
+        <div class="card-body">
+          <p><strong>Owner:</strong> <%= @creature.user.email %></p>
+          <% if @creature.available %>
+            <p class="text-success"><i class="fa fa-check"></i> Available for booking</p>
+          <% else %>
+            <p class="text-danger"><i class="fa fa-times"></i> Not available for booking</p>
+          <% end %>
+        </div>
+      </div>
+
+      <% if @existing_bookings&.any? %>
+        <div class="card mt-3">
+          <div class="card-header">
+            <h5>Already Booked Dates</h5>
+          </div>
+          <div class="card-body">
+            <ul class="list-group list-group-flush">
+              <% @existing_bookings.each do |booking| %>
+                <li class="list-group-item">
+                  <%= booking.start_date.strftime("%b %d, %Y") %> to <%= booking.end_date.strftime("%b %d, %Y") %>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="mt-3">
+    <%= link_to "Back to All Creatures", root_path, class: "btn btn-secondary" %>
+  </div>
 </div>
