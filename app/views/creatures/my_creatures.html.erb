@@ -1,0 +1,44 @@
+<div class="container my-4">
+  <h1>My Creatures</h1>
+
+  <% if @creatures.any? %>
+    <div class="row">
+      <% @creatures.each do |creature| %>
+        <div class="col-md-4 mb-4">
+          <div class="card">
+            <div class="card-header">
+              <h5><%= creature.name %></h5>
+            </div>
+            <div class="card-body">
+              <% if creature.image_url.present? %>
+                <%= image_tag creature.image_url, class: "img-fluid mb-3 card-image" %>
+              <% end %>
+
+              <p class="card-text"><%= truncate(creature.description, length: 100) %></p>
+
+              <p>
+                <strong>Status:</strong>
+                <span class="badge <%= creature.available ? 'bg-success' : 'bg-danger' %>">
+                  <%= creature.available ? 'Available' : 'Not Available' %>
+                </span>
+              </p>
+
+              <p><strong>Price:</strong> $<%= creature.price %> per day</p>
+
+              <div class="mt-3">
+                <%= link_to "View Details", creature_path(creature), class: "btn btn-primary" %>
+                <%= link_to "Edit", edit_creature_path(creature), class: "btn btn-warning" %>
+                <%= link_to "Manage Bookings", manage_bookings_creature_path(creature), class: "btn btn-info" %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="alert alert-info">
+      <p>You haven't created any creatures yet.</p>
+      <%= link_to "Create your first creature", new_creature_path, class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>

@@ -1,6 +1,6 @@
 <div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
   <div class="container-fluid">
-    <%= link_to "#", class: "navbar-brand" do %>
+    <%= link_to root_path, class: "navbar-brand" do %>
       <%= image_tag "https://e7.pngegg.com/pngimages/173/464/png-clipart-pokemon-ball-pokeball-area-wiki.png" %>
     <% end %>
 
@@ -22,8 +22,8 @@
             <%= image_tag "https://i.pinimg.com/474x/78/86/30/7886300bc0e64be83dd4ee4a797f05cb.jpg", class: "avatar", alt: "dropdown menu" %>
           </a>
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-              <%= link_to "Bookings", "#", class: "dropdown-item" %>
-              <%= link_to "Creatures", "#", class: "dropdown-item" %>
+              <%= link_to "Bookings", my_bookings_creature_path(current_user), class: "dropdown-item" %>
+              <%= link_to "Creatures", my_creatures_path(current_user), class: "dropdown-item" %>
               <%= link_to "Log out", destroy_user_session_path, data: {turbo_method: :delete}, class: "dropdown-item" %>
             </div>
           </li>

@@ -24,6 +24,12 @@ class CreaturesController < ApplicationController
     end
   end
 
+  # view my creatures
+  def my_creatures
+  authenticate_user!
+  @creatures = current_user.creatures
+  end
+
   def edit
     @creature = Creature.find(params[:id])
     redirect_to root_path, alert: "You can only edit your own creatures" unless @creature.user == current_user
@@ -41,9 +47,6 @@ class CreaturesController < ApplicationController
     end
   end
 
-  # Booking methods below
-
-  # Show booking form
   def book
     authenticate_user!
 

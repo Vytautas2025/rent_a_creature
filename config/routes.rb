@@ -17,4 +17,5 @@ Rails.application.routes.draw do
 
   # Route to delete a booking
   delete 'bookings/:id', to: 'creatures#cancel_booking', as: :cancel_booking
+  get 'my_creatures', to: 'creatures#my_creatures', as: :my_creatures
 end
