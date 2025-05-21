@@ -1,0 +1,44 @@
+<div class="container my-4">
+  <h1>My Bookings</h1>
+
+  <% if @bookings.any? %>
+    <div class="row">
+      <% @bookings.each do |booking| %>
+        <div class="col-md-6 col-lg-4 mb-4">
+          <div class="card">
+            <div class="card-header">
+              <h5><%= booking.creature.name %></h5>
+            </div>
+            <div class="card-body">
+              <% if booking.creature.image_url.present? %>
+                <%= image_tag booking.creature.image_url, class: "img-fluid mb-3" %>
+              <% end %>
+
+              <p><strong>Dates:</strong> <%= booking.start_date.strftime("%b %d, %Y") %> to <%= booking.end_date.strftime("%b %d, %Y") %></p>
+
+              <p>
+                <strong>Status:</strong>
+                <span class="badge <%= booking.status == 'accepted' ? 'bg-success' :
+                                     (booking.status == 'rejected' ? 'bg-danger' : 'bg-warning') %>">
+                  <%= booking.status.capitalize %>
+                </span>
+              </p>
+
+              <% if booking.status == 'pending' %>
+                <%= link_to "Cancel Request", cancel_booking_path(booking),
+                    data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to cancel this booking?" },
+                    class: "btn btn-sm btn-danger" %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="alert alert-info">You haven't booked any creatures yet!</div>
+  <% end %>
+
+  <div class="mt-3">
+    <%= link_to "Back to Home", root_path, class: "btn btn-secondary" %>
+  </div>
+</div>

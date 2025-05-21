@@ -1,6 +1,6 @@
 class CreaturesController < ApplicationController
-
   skip_before_action :authenticate_user!, only: [:show, :home]
+  before_action :set_creature, only: [:show, :edit, :update, :book, :create_booking, :manage_bookings, :update_booking]
 
   def home
     @creatures = Creature.where(available: true)
@@ -41,9 +41,106 @@ class CreaturesController < ApplicationController
     end
   end
 
+  # Booking methods below
+
+  # Show booking form
+  def book
+    authenticate_user!
+
+    # Don't allow booking your own creature
+    if @creature.user == current_user
+      redirect_to @creature, alert: "You cannot book your own creature!"
+      return
+    end
+
+    @booking = Booking.new
+    @existing_bookings = @creature.bookings.where(status: ['pending', 'accepted'])
+  end
+
+  # Create a new booking
+  def create_booking
+    authenticate_user!
+
+    @booking = Booking.new(booking_params)
+    @booking.creature = @creature
+    @booking.user = current_user
+    @booking.status = "pending"
+
+    if @booking.save
+      redirect_to my_bookings_creature_path(@creature),
+                  notice: "Booking request sent! Awaiting owner approval."
+    else
+      @existing_bookings = @creature.bookings.where(status: ['pending', 'accepted'])
+      render :book, status: :unprocessable_entity
+    end
+  end
+
+  # View bookings you've made (as a renter)
+  def my_bookings
+    authenticate_user!
+    @bookings = current_user.bookings
+  end
+
+  # View bookings for your creature (as an owner)
+  def manage_bookings
+    authenticate_user!
+
+    # Ensure user is the owner of this creature
+    unless @creature.user == current_user
+      redirect_to root_path, alert: "You can only manage bookings for your own creatures"
+      return
+    end
+
+    @bookings = @creature.bookings
+  end
+
+  # Accept or reject a booking
+  def update_booking
+    authenticate_user!
+    @booking = Booking.find(params[:booking_id])
+
+    # Ensure the booking belongs to one of current user's creatures
+    unless @booking.creature.user == current_user
+      redirect_to root_path, alert: "You can only manage bookings for your own creatures"
+      return
+    end
+
+    if @booking.update(status: params[:status])
+      redirect_to manage_bookings_creature_path(@creature),
+                  notice: "Booking was #{params[:status]}."
+    else
+      redirect_to manage_bookings_creature_path(@creature),
+                  alert: "Could not update booking status."
+    end
+  end
+
+  # Cancel a booking (as a renter)
+  def cancel_booking
+    authenticate_user!
+    @booking = Booking.find(params[:id])
+
+    # Ensure the booking belongs to current user
+    unless @booking.user == current_user
+      redirect_to root_path, alert: "You can only cancel your own bookings"
+      return
+    end
+
+    @booking.destroy
+    redirect_to my_bookings_creature_path(@booking.creature),
+                notice: "Booking was cancelled."
+  end
+
   private
 
   def creature_params
     params.require(:creature).permit(:name, :description, :available, :price, :image_url)
+  end
+
+  def booking_params
+    params.require(:booking).permit(:start_date, :end_date)
+  end
+
+  def set_creature
+    @creature = Creature.find(params[:id])
   end
 end

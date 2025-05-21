@@ -1,15 +1,20 @@
 Rails.application.routes.draw do
   devise_for :users
   root to: "creatures#home"
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
+  # Health check route
   get "up" => "rails/health#show", as: :rails_health_check
 
-  # Defines the root path route ("/")
-  # root "posts#index"
-  
-  resources :creatures, only: [:show, :edit, :update, :new, :create]
+  resources :creatures do
+    member do
+      get :book               # Form to book a creature
+      post :create_booking    # Create a new booking
+      get :my_bookings        # View your bookings (as a renter)
+      get :manage_bookings    # View bookings for your creatures (as an owner)
+      patch :update_booking   # Accept/reject a booking
+    end
+  end
 
+  # Route to delete a booking
+  delete 'bookings/:id', to: 'creatures#cancel_booking', as: :cancel_booking
 end
