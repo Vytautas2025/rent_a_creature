@@ -1,6 +1,7 @@
 
 puts "Cleaning the DB..."
 
+Booking.destroy_all
 Creature.destroy_all
 User.destroy_all
 
