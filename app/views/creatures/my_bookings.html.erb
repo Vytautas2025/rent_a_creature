@@ -7,9 +7,8 @@
         <div class="col-md-4 mb-4">
           <div class="card">
             <h5><%= booking.creature.name %></h5>
-            <% if booking.creature.image_url.present? %>
-              <%= image_tag booking.creature.image_url, class: "img-fluid mb-3" %>
-            <% end %>
+
+            <%= image_tag cl_image_path(booking.creature.photo.key), class: "img-fluid my-3 card-image" if booking.creature.photo.attached? %>
 
             <p><strong>Dates:</strong> <%= booking.start_date.strftime("%b %d, %Y") %> to <%= booking.end_date.strftime("%b %d, %Y") %></p>
 

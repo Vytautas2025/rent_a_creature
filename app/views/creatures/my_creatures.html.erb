@@ -10,9 +10,8 @@
               <h5><%= creature.name %></h5>
             </div>
             <div class="card-body">
-              <% if creature.image_url.present? %>
-                <%= image_tag creature.image_url, class: "img-fluid mb-3 card-image" %>
-              <% end %>
+
+              <%= image_tag cl_image_path(creature.photo.key), class: "img-fluid mb-3 card-image" if creature.photo.attached? %>
 
               <p class="card-text"><%= truncate(creature.description, length: 100) %></p>
 
