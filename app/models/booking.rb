@@ -22,14 +22,9 @@ class Booking < ApplicationRecord
     return if end_date.blank? || start_date.blank?
 
     overlapping_bookings = creature.bookings
-                                  .where(status: ['pending', 'accepted'])
-                                  .where.not(id: id) # Exclude current booking when updating
-                                  .where("(start_date <= ? AND end_date >= ?) OR
-                                         (start_date <= ? AND end_date >= ?) OR
-                                         (start_date >= ? AND end_date <= ?)",
-                                         end_date, end_date,
-                                         start_date, start_date,
-                                         start_date, end_date)
+      .where(status: ['pending', 'accepted'])
+      .where.not(id: id) # Exclude current booking when updating
+      .where(start_date: ..end_date).where(end_date: start_date..)
 
     if overlapping_bookings.exists?
       errors.add(:base, "The creature is already booked for selected dates")
