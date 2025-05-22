@@ -19,7 +19,6 @@ users = [user1, user2, user3, user4, user5]
 
 puts "#{User.count} users created"
 
-
 puts "creating creatures"
 
 (1..30).each do |id|
@@ -39,7 +38,6 @@ puts "creating creatures"
 
   Creature.create!(
     name: name,
-    image_url: image_url,
     price: price,
     user: users.sample,
     types: types,
@@ -50,5 +48,4 @@ puts "creating creatures"
 end
 
 puts "#{Creature.count} creatures created"
-
 puts "Done!"

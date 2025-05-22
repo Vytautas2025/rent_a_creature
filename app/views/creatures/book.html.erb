@@ -3,9 +3,9 @@
 
   <div class="row">
     <div class="col-md-6 card mb-4 card-body">
-      <% if @creature.image_url.present? %>
-        <%= image_tag @creature.image_url, class: "img-fluid mb-3" %>
-      <% end %>
+
+      <%= image_tag cl_image_path(@creature.photo.key), class: "img-fluid mb-3" if @creature.photo.attached? %>
+
       <h5 class="card-title"><%= @creature.name %></h5>
       <p class="card-text"><%= @creature.description %></p>
       <p class="card-text"><strong>Price:</strong> $<%= @creature.price %> per day</p>

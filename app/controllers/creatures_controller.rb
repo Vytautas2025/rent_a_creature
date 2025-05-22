@@ -3,11 +3,22 @@ class CreaturesController < ApplicationController
   before_action :set_creature, only: [:show, :edit, :update, :book, :create_booking, :manage_bookings, :update_booking]
 
   def home
-    @creatures = Creature.where(available: true)
+    if params[:query].present?
+      @creatures = Creature.where(available: true).search_by_name_and_description(params[:query])
+    else
+      @creatures = Creature.where(available: true)
+    end
   end
 
   def show
     @creature = Creature.find(params[:id])
+    @markers = [
+      {
+      lat: @creature.latitude,
+      lng: @creature.longitude,
+      info_window_html: render_to_string(partial: "info_window", locals: { creature: @creature })
+      }
+    ]
   end
 
   def new
@@ -136,7 +147,7 @@ class CreaturesController < ApplicationController
   private
 
   def creature_params
-    params.require(:creature).permit(:name, :description, :available, :price, :image_url)
+    params.require(:creature).permit(:name, :description, :available, :price, :photo)
   end
 
   def booking_params
