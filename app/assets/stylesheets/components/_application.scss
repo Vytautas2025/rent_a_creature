@@ -1,0 +1,34 @@
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-image: image-url("pokemon2.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.5;
+  z-index: -1;
+}
+
+@font-face {
+  font-family: 'Pokemon  Hollow';
+  src: url('https://www.fontsaddict.com/fontface/pokemon-hollow.TTF');
+}
+	
+
+.home-title h1, h2 {
+  font-family: 'Pokemon  Hollow', 'Montserrat', Arial, sans-serif;
+  font-weight: 700;
+  font-size: 6em;
+  color: #ffcc02;
+  text-align: center;
+  line-height: 1.2;
+  -webkit-font-smoothing: antialiased;
+  -webkit-overflow-scrolling: touch;
+  -webkit-text-stroke-width: 0.05em;
+  -webkit-text-stroke-color: #255a90;
+  text-shadow: -0.05em 0.1em 0.15em #1b285f;
+}
