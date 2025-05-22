@@ -3,7 +3,11 @@ class CreaturesController < ApplicationController
   before_action :set_creature, only: [:show, :edit, :update, :book, :create_booking, :manage_bookings, :update_booking]
 
   def home
-    @creatures = Creature.where(available: true)
+    if params[:query].present?
+      @creatures = Creature.where(available: true).search_by_name_and_description(params[:query])
+    else
+      @creatures = Creature.where(available: true)
+    end
   end
 
   def show
