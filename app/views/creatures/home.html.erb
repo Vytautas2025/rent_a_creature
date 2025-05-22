@@ -10,10 +10,10 @@
           <div class="col-md-4 mb-4">
             <%= link_to creature_path(creature), class: "clickable-container" do %>
               <div class="card">
-                <h3><%= creature.name %></h3>
                 <%= image_tag cl_image_path(creature.photo.key, secure: true), class: "card-image" if creature.photo.attached? %>
                 <p><%= creature.description %></p>
                 <p>Price: $<%= creature.price %> per day</p>
+                <h3><%= creature.name %></h3>
               </div>
             <% end %>
           </div>
