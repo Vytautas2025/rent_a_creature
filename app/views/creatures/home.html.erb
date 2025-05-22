@@ -1,18 +1,17 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      <div class="home-title"> 
+      <div class="home-title">
         <h1>Welcome to Rent a Creature!</h1>
         <h2>Featured Creatures</h2>
-        <p>Here you can create and manage your own creatures.</p>
       </div>
-      <div class="row my-3"> 
+      <div class="row my-3">
         <% @creatures.each do |creature| %>
-          <div class="col-md-4 mb-4"> 
+          <div class="col-md-4 mb-4">
             <%= link_to creature_path(creature), class: "clickable-container" do %>
               <div class="card">
                 <h3><%= creature.name %></h3>
-                <%= image_tag creature.image_url, class: "card-image" %>
+                <%= image_tag cl_image_path(creature.photo.key), class: "card-image" if creature.photo.attached? %>
                 <p><%= creature.description %></p>
                 <p><%= creature.available %></p>
                 <p><%= creature.price %></p>
