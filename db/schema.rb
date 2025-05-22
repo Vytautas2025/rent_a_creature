@@ -11,7 +11,6 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.1].define(version: 2025_05_22_142511) do
-
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -54,7 +53,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_05_22_142511) do
     t.index ["creature_id"], name: "index_bookings_on_creature_id"
     t.index ["user_id"], name: "index_bookings_on_user_id"
   end
-  
+
   create_table "creatures", force: :cascade do |t|
     t.string "name"
     t.text "description"
