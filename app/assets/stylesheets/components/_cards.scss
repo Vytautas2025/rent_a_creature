@@ -1,15 +1,22 @@
-/* Optional: Adjust card styles for spacing and appearance */
+
 .card {
-    background-color: rgb(209, 208, 208);
+    background-image: image-url("golden-border.PNG");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    padding: 20px;
+    padding: 30px;
     transition: transform 0.2s;
-    margin-bottom: 20px; /* Add space between cards vertically */
+    margin-bottom: 20px; 
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 1;
 }
 
 .card:hover {
-    transform: scale(1.05); /* Scale effect on hover */
+    transform: scale(1.05);
 }
 
 .card-header {
