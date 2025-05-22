@@ -2,6 +2,7 @@ require 'open-uri'
 require 'json'
 require 'faker'
 
+
 puts "Cleaning the DB..."
 
 Booking.destroy_all
@@ -36,7 +37,7 @@ puts "creating creatures"
     "london, england", "paris, france", "Beriln, germany", "Barcelona, spain", "Rome,italy",
   ]
 
-  Creature.create!(
+  creature = Creature.new(
     name: name,
     price: price,
     user: users.sample,
@@ -45,6 +46,11 @@ puts "creating creatures"
     location: locations.sample,
     address: "#{Faker::Address.street_address}.#{Faker::Address.city}, #{locations.sample}"
   )
+
+    file = URI.parse(image_url).open
+    creature.photo.attach(io: file, filename: "nes.png", content_type: "image/png")
+    creature.save
+
 end
 
 puts "#{Creature.count} creatures created"

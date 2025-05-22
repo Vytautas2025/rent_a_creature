@@ -14,7 +14,7 @@
                 <%= image_tag cl_image_path(creature.photo.key), class: "card-image" if creature.photo.attached? %>
                 <p><%= creature.description %></p>
                 <p><%= creature.available %></p>
-                <p><%= creature.price %></p>
+                <p>Price: $<%= creature.price %> per day</p>
               </div>
             <% end %>
           </div>
