@@ -6,7 +6,7 @@
         <div class="card-body">
           <h1 class="card-title mb-3"><%= @creature.name %></h1>
 
-          <%= image_tag cl_image_path(@creature.photo.key), class: "img-fluid my-3 card-image" if @creature.photo.attached? %>
+          <%= image_tag cl_image_path(@creature.photo.key, secure: true), class: "img-fluid my-3 card-image" if @creature.photo.attached? %>
 
           <h4 class="mb-2">Description:</h4>
           <p class="card-text mb-4"><%= @creature.description %></p>
