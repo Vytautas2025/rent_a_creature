@@ -12,6 +12,13 @@ class CreaturesController < ApplicationController
 
   def show
     @creature = Creature.find(params[:id])
+    @markers = [
+      {
+      lat: @creature.latitude,
+      lng: @creature.longitude,
+      info_window_html: render_to_string(partial: "info_window", locals: { creature: @creature })
+      }
+    ]
   end
 
   def new
