@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
-  root to: "pages#home" # Landing page
-  # root to: "creatures#home"
+  # root to: "pages#home" # Landing page
+  root to: "creatures#home"
 
   # Health check route
   get "up" => "rails/health#show", as: :rails_health_check
@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   # Route to delete a booking
   delete 'bookings/:id', to: 'creatures#cancel_booking', as: :cancel_booking
   get 'my_creatures', to: 'creatures#my_creatures', as: :my_creatures
+  get 'landing', to: 'pages#home', as: :landing
 
   get 'creatures_home', to: 'creatures#home', as: :creatures_home
 end
