@@ -40,7 +40,7 @@
           <% elsif user_signed_in? %>
             <div class="pokemon-alert warning">This creature is currently not available for booking.</div>
           <% else %>
-            <div class="pokemon-alert info">Please <%= link_to "sign in", new_user_session_path, class: "pokemon-link" %> to book this creature.</div>
+            <%= link_to "Please sign in to book this creature.", new_user_session_path, class: "pokemon-alert info" %>
           <% end %>
         </div>
       </div>
