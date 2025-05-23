@@ -1,6 +1,19 @@
-<div class="form-container w-100">
-  <div class="new">
-    <h2>Add a new Creature</h2>
-    <%= render "shared/form"%>
-  <div>
-<div>
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-md-10">
+      <div class="pokemon-form-container">
+        <div class="pokemon-form-header">
+          <h1>CREATE NEW CREATURE</h1>
+        </div>
+
+        <div class="pokemon-form-body">
+          <%= render "shared/form" %>
+        </div>
+
+        <div class="mt-4 text-center">
+          <%= link_to "GO BACK", root_path, class: "pokemon-button back" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

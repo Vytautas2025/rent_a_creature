@@ -1,79 +1,72 @@
-<div class="container my-3">
-  <div class="row">
-    <div class="col-md-8">
-      <div class="card mb-4">
-        <div class="card-body">
-          <h1 class="card-title"><%= @creature.name %></h1>
+<div class="container show-page-container my-5">
+  <div class="row show-page-row justify-content-center">
+    <!-- Main creature card with Pokemon-style design -->
+    <div class="col-lg-10 col-xl-10 mb-4 d-flex justify-content-center">
+      <div class="pokemon-detail-card">
+        <div class="pokemon-detail-image-container">
+          <%= image_tag cl_image_path(@creature.photo.key, secure: true), class: "pokemon-detail-image" if @creature.photo.attached? %>
+        </div>
 
-          <% if @creature.image_url.present? %>
-            <%= image_tag @creature.image_url, class: "img-fluid my-3 card-image" %>
-          <% end %>
+        <div class="pokemon-info-section">
+          <div class="pokemon-name-plate">
+            <h1><%= @creature.name %></h1>
+          </div>
+          <div class="pokemon-stats">
+            <p class="pokemon-description"><%= @creature.description %></p>
+            <p class="pokemon-price">Price: $<%= @creature.price %>/day</p>
 
-          <h4>Description:</h4>
-          <p class="card-text"><%= @creature.description %></p>
+            <div class="pokemon-status">
+              <div class="status-indicator <%= @creature.available ? 'available' : 'unavailable' %>">
+                <%= @creature.available ? 'AVAILABLE' : 'UNAVAILABLE' %>
+              </div>
+            </div>
+          </div>
+        </div>
 
-          <p>
-            <strong>Availability:</strong>
-            <span class="badge <%= @creature.available ? 'bg-success' : 'bg-danger' %>">
-              <%= @creature.available ? 'Available' : 'Not Available' %>
-            </span>
-          </p>
+        <div class="pokemon-owner-section">
+          <div class="owner-title">TRAINER INFO</div>
+          <div class="owner-details">
+            <p><strong>Owner:</strong> <%= @creature.user.email %></p>
+          </div>
+        </div>
 
-          <p class="card-text"><strong>Price:</strong> $<%= @creature.price %> per day</p>
-
+        <!-- Action buttons -->
+        <div class="pokemon-actions">
           <% if @creature.user == current_user %>
-            <div class="mt-3">
-              <%= link_to "Edit Creature", edit_creature_path(@creature), class: "btn btn-warning" %>
-              <%= link_to "Manage Booking Requests", manage_bookings_creature_path(@creature), class: "btn btn-info" %>
-            </div>
+            <%= link_to "Edit Creature", edit_creature_path(@creature), class: "pokemon-button edit" %>
+            <%= link_to "Manage Bookings", manage_bookings_creature_path(@creature), class: "pokemon-button manage" %>
           <% elsif user_signed_in? && @creature.available %>
-            <div class="mt-3">
-              <%= link_to "Book This Creature", book_creature_path(@creature), class: "btn btn-primary" %>
-            </div>
+            <%= link_to "Book This Creature", book_creature_path(@creature), class: "pokemon-button catch" %>
           <% elsif user_signed_in? %>
-            <div class="alert alert-warning mt-3">This creature is currently not available for booking.</div>
+            <div class="pokemon-alert warning">This creature is currently not available for booking.</div>
           <% else %>
-            <div class="alert alert-info mt-3">Please <%= link_to "sign in", new_user_session_path %> to book this creature.</div>
+            <div class="pokemon-alert info">Please <%= link_to "sign in", new_user_session_path, class: "pokemon-link" %> to book this creature.</div>
           <% end %>
         </div>
       </div>
-    </div>
-
-    <div class="col-md-4">
-      <div class="card">
-        <div class="card-header">
-          <h5>Owner Information</h5>
-        </div>
-        <div class="card-body">
-          <p><strong>Owner:</strong> <%= @creature.user.email %></p>
-          <% if @creature.available %>
-            <p class="text-success"><i class="fa fa-check"></i> Available for booking</p>
-          <% else %>
-            <p class="text-danger"><i class="fa fa-times"></i> Not available for booking</p>
-          <% end %>
-        </div>
-      </div>
-
-      <% if @existing_bookings&.any? %>
-        <div class="card mt-3">
-          <div class="card-header">
-            <h5>Already Booked Dates</h5>
-          </div>
-          <div class="card-body">
-            <ul class="list-group list-group-flush">
-              <% @existing_bookings.each do |booking| %>
-                <li class="list-group-item">
-                  <%= booking.start_date.strftime("%b %d, %Y") %> to <%= booking.end_date.strftime("%b %d, %Y") %>
-                </li>
-              <% end %>
-            </ul>
-          </div>
-        </div>
-      <% end %>
     </div>
   </div>
 
-  <div class="mt-3">
-    <%= link_to "Back to All Creatures", root_path, class: "btn btn-secondary" %>
+  <!-- Map section in its own row -->
+  <div class="row justify-content-center">
+    <div class="col-lg-10 col-xl-10 mb-4 d-flex justify-content-center">
+      <div class="pokemon-map-card">
+        <div class="pokemon-card-header">
+          <h3>LOCATION</h3>
+        </div>
+        <div class="pokemon-map-container">
+          <div
+            data-controller="map"
+            data-map-markers-value="<%= @markers.to_json %>"
+            data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>"
+            data-map-options-value='{"disableSearchBox": true}'>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-center mt-4">
+    <%= link_to "Back to All Creatures", root_path, class: "pokemon-button back" %>
   </div>
 </div>

@@ -13,6 +13,9 @@ export default class extends Controller {
   connect() {
     console.log("Datepicker controller connected")
 
+    // Get flatpickr elements
+    this.inputElement = this.element.querySelector('input[type="text"]');
+
     // Format booked dates for disabling
     let disabledRanges = []
 
@@ -33,7 +36,9 @@ export default class extends Controller {
       dateFormat: "Y-m-d",            // Format dates as YYYY-MM-DD
       disable: disabledRanges,        // Disable already booked dates
       minDate: "today",               // Prevent booking in the past
-      showMonths: 2,                  // Show two months for easier range selection
+      maxDate: new Date().fp_incr(60), // Limit bookings to 60 days ahead
+      showMonths: 1,                  // Show only one month
+      static: true,
 
       // When the selected dates change
       onChange: (selectedDates, dateStr) => {
@@ -41,19 +46,22 @@ export default class extends Controller {
 
         // Only update if we have a complete range (two dates)
         if (selectedDates.length === 2) {
+          const startDate = selectedDates[0];
+          const endDate = selectedDates[1];
+
           // Update the hidden form fields
-          this.startDateTarget.value = this.formatDate(selectedDates[0])
-          this.endDateTarget.value = this.formatDate(selectedDates[1])
+          this.startDateTarget.value = this.formatDate(startDate)
+          this.endDateTarget.value = this.formatDate(endDate)
 
           // Calculate and display the total price
-          this.calculateTotal(selectedDates[0], selectedDates[1])
+          this.calculateTotal(startDate, endDate)
         }
       }
     }
 
     // Initialize Flatpickr
     console.log("Initializing flatpickr")
-    this.fp = flatpickr(this.element.querySelector("input"), config)
+    this.fp = flatpickr(this.inputElement, config);
   }
 
   // Format date to YYYY-MM-DD for form submission

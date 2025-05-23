@@ -1,0 +1,86 @@
+.pokemon-address-container {
+  position: relative;
+}
+
+/* Make geocoder container match our Pokemon form styling exactly */
+.pokemon-address-container .mapboxgl-ctrl-geocoder {
+  max-width: none;
+  width: 100%;
+  border: none;
+  box-shadow: none;
+  background-color: transparent;
+}
+
+/* Style the input field to match our Pokemon theme perfectly */
+.pokemon-address-container .mapboxgl-ctrl-geocoder input {
+  width: 100%;
+  padding: 10px;
+  padding-left: 35px !important;
+  border: 2px solid #2a75bb;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  font-family: 'Press Start 2P', 'Montserrat', Arial, sans-serif;
+  font-size: 0.8rem;
+  color: #2a75bb;
+  height: 46px;
+  box-shadow: none;
+  margin: 0;
+}
+
+.pokemon-address-container .mapboxgl-ctrl-geocoder input:focus {
+  border-color: #ffcb05;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 203, 5, 0.3);
+}
+
+/* Make suggestions appear exactly below the input */
+.pokemon-address-container .suggestions {
+  width: 100%;
+  border: 3px solid #ffcb05 !important;
+  border-radius: 0 0 8px 8px !important;
+  margin-top: -3px;
+  background-color: #f9f9f9;
+  box-shadow: 0 6px 8px rgba(0,0,0,0.25);
+  font-family: 'Press Start 2P', 'Montserrat', Arial, sans-serif;
+  font-size: 0.7rem;
+  overflow: hidden;
+  z-index: 10;
+}
+
+.pokemon-address-container .suggestions > li {
+  padding: 12px;
+  cursor: pointer;
+  background-color: #f9f9f9;
+  color: #2a75bb;
+  border-bottom: 1px solid rgba(42, 117, 187, 0.2);
+  transition: all 0.2s ease;
+}
+
+.pokemon-address-container .suggestions > li:last-child {
+  border-bottom: none;
+}
+
+.pokemon-address-container .suggestions > li:hover,
+.pokemon-address-container .suggestions > .active {
+  background-color: #ffcb05;
+  color: #2a75bb;
+}
+
+/* Position search icon properly */
+.pokemon-address-container .mapboxgl-ctrl-geocoder--icon-search {
+  top: 13px;
+  left: 10px;
+}
+
+/* Style the clear button more like a Pokeball */
+.pokemon-address-container .mapboxgl-ctrl-geocoder--button {
+  background-color: transparent;
+  margin-right: 5px;
+}
+
+.pokemon-address-container .mapboxgl-ctrl-geocoder--button-icon {
+  background-color: #e53935;
+  border-radius: 50%;
+  padding: 3px;
+  filter: invert(100%);
+}

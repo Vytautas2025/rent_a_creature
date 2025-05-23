@@ -1,39 +1,56 @@
-<div class="container my-4">
-  <h1>My Bookings</h1>
+<div class="container my-5">
+  <div class="pokemon-page-header">
+    <h1 class="text-center mb-4">MY BOOKINGS</h1>
+  </div>
 
   <% if @bookings.any? %>
-    <div class="row w-100">
+    <div class="row justify-content-center">
       <% @bookings.each do |booking| %>
-        <div class="col-md-4 mb-4">
-          <div class="card">
-            <h5><%= booking.creature.name %></h5>
-            <% if booking.creature.image_url.present? %>
-              <%= image_tag booking.creature.image_url, class: "img-fluid mb-3" %>
-            <% end %>
+        <div class="col-12 col-sm-6 col-md-4 mb-4 pokemon-card-container">
+          <div class="pokemon-detail-card booking-card">
+            <div class="pokemon-detail-image-container">
+              <%= image_tag cl_image_path(booking.creature.photo.key), class: "pokemon-detail-image" if booking.creature.photo.attached? %>
+            </div>
 
-            <p><strong>Dates:</strong> <%= booking.start_date.strftime("%b %d, %Y") %> to <%= booking.end_date.strftime("%b %d, %Y") %></p>
+            <div class="pokemon-info-section">
+              <div class="pokemon-name-plate">
+                <h1><%= booking.creature.name %></h1>
+              </div>
 
-            <p>
-              <strong>Status:</strong>
-              <span class="badge <%= booking.status == 'accepted' ? 'bg-success' :
-                                    (booking.status == 'rejected' ? 'bg-danger' : 'bg-warning') %>">
-                <%= booking.status.capitalize %>
-              </span>
-            </p>
-            <% if booking.status == 'pending' %>
-              <%= link_to "Cancel Request", cancel_booking_path(booking),
-                  data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to cancel this booking?" },
-                  class: "btn btn-sm btn-danger" %>
-            <% end %>
+              <div class="pokemon-stats">
+                <p class="booking-dates">
+                  <strong>DATES:</strong><br>
+                  <%= booking.start_date.strftime("%b %d, %Y") %> to <%= booking.end_date.strftime("%b %d, %Y") %>
+                </p>
+
+                <div class="pokemon-status">
+                  <div class="status-indicator <%= booking.status == 'accepted' ? 'available' :
+                                                  (booking.status == 'rejected' ? 'unavailable' : 'pending') %>">
+                    <%= booking.status.upcase %>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="pokemon-actions">
+              <% if booking.status == 'pending' %>
+                <%= link_to "CANCEL", cancel_booking_path(booking),
+                    data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to cancel this booking?" },
+                    class: "pokemon-button back" %>
+              <% end %>
+              <%= link_to "VIEW", creature_path(booking.creature), class: "pokemon-button info" %>
+            </div>
           </div>
         </div>
       <% end %>
     </div>
   <% else %>
-    <div class="alert alert-info">You haven't booked any creatures yet!</div>
+    <div class="pokemon-alert info">
+      <p>You haven't caught any creatures yet!</p>
+    </div>
   <% end %>
 
-  <div class="mt-3">
-    <%= link_to "Back to Home", root_path, class: "btn btn-secondary" %>
+  <div class="text-center mt-4">
+    <%= link_to "BACK TO HOME", root_path, class: "pokemon-button back" %>
   </div>
 </div>
