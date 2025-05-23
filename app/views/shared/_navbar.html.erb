@@ -3,7 +3,16 @@
     <%= link_to root_path, class: "navbar-brand" do %>
       <%= image_tag "logo.png" %>
     <% end %>
-
+     <div class="search-section w-50">
+      <%= form_with url: root_path, method: :get, class: "d-flex" do %>
+        <%= text_field_tag :query,
+          params[:query],
+          class: "form-control me-2",
+          placeholder: "Gotta catch 'em all..."
+          %>
+        <%= submit_tag "⚡ Catch 'Em!", name: "", class: "search-btn" %>
+      <% end %>
+    </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -14,6 +23,7 @@
           <li class="nav-item active">
             <%= link_to "Home", root_path, class: "nav-link" %>
           </li>
+
           <li class="nav-item">
             <%= link_to "New Creature", new_creature_path, class: "nav-link" %>
           </li>
