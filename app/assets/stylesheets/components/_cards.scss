@@ -237,6 +237,11 @@
   border: 2px solid #b71c1c;
 }
 
+.status-indicator.pending {
+  background-color: #ffcb05;
+  color: #2a75bb;
+}
+
 .pokemon-owner-section {
   padding: 15px;
   background-color: rgba(255, 255, 255, 0.9);
@@ -321,6 +326,12 @@
   border-color: #4b636e;
 }
 
+.pokemon-button.info {
+  background-color: #2a75bb;
+  border-color: #1a365e;
+  color: white;
+}
+
 .pokemon-alert {
   width: 100%;
   padding: 10px;
@@ -337,11 +348,22 @@
 }
 
 .pokemon-alert.info {
-  background-color: #d1ecf1;
-  border-color: #bee5eb;
-  color: #0c5460;
+  background-color: #2a75bb;
+  color: white;
 }
 
+.pokemon-alert {
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 4px solid #ffcb05;
+  outline: 2px solid #2a75bb;
+  padding: 15px 20px;
+  border-radius: 10px;
+  text-align: center;
+  font-family: 'Press Start 2P', 'Montserrat', Arial, sans-serif;
+  margin: 30px auto;
+  max-width: 600px;
+  box-shadow: 0 6px 10px rgba(0,0,0,0.2);
+}
 
 /* Pokemon Map Card */
 .pokemon-map-card {
@@ -447,8 +469,6 @@
   width: 100%;
   min-width: 300px;
   max-width: 600px; /* Increase from 450px for better UX */
-  margin-left: auto;
-  margin-right: auto;
 }
 
 /* Make both cards match width at all breakpoints */
@@ -466,6 +486,106 @@
     width: 850px; /* Even wider on very large screens */
     max-width: 850px;
   }
+}
+
+/* Booking card styles */
+.pokemon-page-header {
+  margin-bottom: 30px;
+}
+
+.pokemon-page-header h1 {
+  font-family: 'Press Start 2P', 'Montserrat', Arial, sans-serif;
+  color: #2a75bb;
+  text-shadow: 2px 2px 0 #ffcb05;
+  font-size: 2rem;
+}
+
+.booking-card .booking-dates {
+  font-family: 'Press Start 2P', 'Montserrat', Arial, sans-serif;
+  font-size: 0.7rem;
+  margin-bottom: 15px;
+  color: #333;
+  line-height: 1.5;
+}
+
+.status-indicator.pending {
+  background-color: #ffcb05;
+  color: #2a75bb;
+}
+
+.pokemon-button.info {
+  background-color: #2a75bb;
+  border-color: #1a365e;
+  color: white;
+}
+
+.pokemon-alert {
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 4px solid #ffcb05;
+  outline: 2px solid #2a75bb;
+  padding: 15px 20px;
+  border-radius: 10px;
+  text-align: center;
+  font-family: 'Press Start 2P', 'Montserrat', Arial, sans-serif;
+  margin: 30px auto;
+  max-width: 600px;
+  box-shadow: 0 6px 10px rgba(0,0,0,0.2);
+}
+
+.pokemon-alert.info {
+  background-color: #2a75bb;
+  color: white;
+}
+
+.pokemon-alert p {
+  margin-bottom: 0;
+}
+
+/* Fixed booking grid styles to keep cards contained properly */
+
+/* Booking cards grid layout - with containment */
+.booking-cards-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 30px;
+  width: 100%;
+  max-width: 1100px; /* Prevent extending beyond container */
+  margin: 0 auto; /* Center the entire grid */
+  justify-content: center; /* Center the grid tracks */
+}
+
+/* Grid item for consistent alignment */
+.booking-grid-item {
+  width: 100%;
+  max-width: 350px;
+  justify-self: center; /* Center each item in its cell */
+}
+
+/* Fix container width */
+.pokemon-card-container {
+  width: 100%;
+  max-width: 350px; /* Match the card width */
+}
+
+/* Responsive grid columns that won't overflow */
+@media (min-width: 768px) {
+  .booking-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 992px) {
+  .booking-cards-grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 350px));
+    justify-content: center;
+  }
+}
+
+/* Force booking cards to have consistent width without overflowing */
+.booking-card.pokemon-detail-card {
+  width: 100% !important;
+  max-width: 350px !important;
+  box-sizing: border-box !important;
 }
 
 
