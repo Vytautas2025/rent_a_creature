@@ -453,3 +453,19 @@ input.pokemon-form-control.flatpickr-input {
 .pokemon-map-container {
   transition: all 0.3s ease;
 }
+
+.current-photo-container {
+  border: 3px solid #ffcb05;
+  border-radius: 8px;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.current-creature-photo {
+  width: 100%;
+  max-height: 200px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+  border-radius: 5px;
+}
