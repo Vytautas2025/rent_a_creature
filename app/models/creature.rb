@@ -3,7 +3,7 @@ class Creature < ApplicationRecord
   has_many :bookings, dependent: :destroy
 
   validates :name, presence: true
-  validates :description, presence: true
+  # validates :description, presence: true
   validates :address, presence: true
   validates :photo, presence: true
   validates :price, presence: true, numericality: { greater_than: 0 }

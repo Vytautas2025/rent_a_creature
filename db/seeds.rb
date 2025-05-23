@@ -44,7 +44,8 @@ puts "creating creatures"
     types: types,
     available: available,
     location: locations.sample,
-    address: "#{Faker::Address.street_address}.#{Faker::Address.city}, #{locations.sample}"
+    address: "#{Faker::Address.street_address}.#{Faker::Address.city}, #{locations.sample}",
+    description: "#{name} is a #{types} type creature. It is known for its unique abilities and characteristics. This creature is available for booking at a price of $#{price}.",
   )
 
     file = URI.parse(image_url).open
