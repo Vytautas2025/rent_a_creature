@@ -1,26 +1,38 @@
-<div class="container my-4">
-  <h1>Book <%= @creature.name %></h1>
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-md-10 col-10">
+      <div class="pokemon-form-container">
+        <div class="pokemon-form-header">
+          <h1>BOOK <%= @creature.name.upcase %></h1>
+        </div>
 
-  <div class="row">
-    <div class="col-md-6 card mb-4 card-body">
+        <!-- Creature Info -->
+        <div class="pokemon-creature-info">
+          <div class="pokemon-detail-image-container">
+            <%= image_tag cl_image_path(@creature.photo.key), class: "pokemon-detail-image" if @creature.photo.attached? %>
+          </div>
 
-      <%= image_tag cl_image_path(@creature.photo.key), class: "img-fluid mb-3" if @creature.photo.attached? %>
+          <div class="pokemon-info-section">
+            <div class="pokemon-name-plate">
+              <h1><%= @creature.name %></h1>
+            </div>
+            <div class="pokemon-stats">
+              <p class="pokemon-description"><%= @creature.description %></p>
+              <p class="pokemon-price">Price: $<%= @creature.price %>/day</p>
 
-      <h5 class="card-title"><%= @creature.name %></h5>
-      <p class="card-text"><%= @creature.description %></p>
-      <p class="card-text"><strong>Price:</strong> $<%= @creature.price %> per day</p>
-    </div>
+              <div class="pokemon-status">
+                <div class="status-indicator <%= @creature.available ? 'available' : 'unavailable' %>">
+                  <%= @creature.available ? 'AVAILABLE' : 'UNAVAILABLE' %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-    <div class="col-md-6">
-      <div class="card card-body">
-        <h5 class="card-title">Book this creature</h5>
-
-        <!-- Store the price data in a hidden element -->
-        <div data-price-per-day="<%= @creature.price %>" class="d-none"></div>
-
-        <%= simple_form_for @booking, url: create_booking_creature_path(@creature), method: :post do |f| %>
+        <!-- Booking Form -->
+        <div class="mt-4">
           <% if @booking.errors.any? %>
-            <div class="alert alert-danger mb-3">
+            <div class="pokemon-alert warning">
               <h6><%= pluralize(@booking.errors.count, "error") %> prohibited this booking from being saved:</h6>
               <ul class="mb-0">
                 <% @booking.errors.full_messages.each do |message| %>
@@ -32,35 +44,40 @@
 
           <% booked_dates_json = @existing_bookings.map { |b| {start: b.start_date, end: b.end_date} }.to_json %>
 
+          <!-- Store the price data in a hidden element -->
+          <div data-price-per-day="<%= @creature.price %>" class="d-none"></div>
+
           <!-- Date picker with Stimulus controller -->
-          <div data-controller="datepicker" data-datepicker-booked-dates-value='<%= booked_dates_json %>'>
-            <div class="mb-3">
-              <label class="form-label">Select dates</label>
-              <input type="text"
-                     class="form-control"
-                     placeholder="Click to select dates"
-                     autocomplete="off"
-                     readonly>
-              <small class="form-text text-muted">Unavailable dates will be grayed out in the calendar.</small>
+          <%= simple_form_for @booking, url: create_booking_creature_path(@creature), method: :post do |f| %>
+            <div data-controller="datepicker" data-datepicker-booked-dates-value='<%= booked_dates_json %>' data-datepicker-has-booked-dates-value="<%= @existing_bookings.any? %>">
+              <div class="pokemon-form-group">
+                <label class="pokemon-form-label">SELECT DATES</label>
+                <input type="text"
+                       class="pokemon-form-control"
+                       placeholder="Click to select dates"
+                       autocomplete="off"
+                       readonly>
+                <small class="date-helper-text">Unavailable dates are grayed out in the calendar. Maximum booking: 60 days.</small>
 
-              <!-- Hidden fields updated by our controller -->
-              <%= f.hidden_field :start_date, data: { datepicker_target: "startDate" } %>
-              <%= f.hidden_field :end_date, data: { datepicker_target: "endDate" } %>
+                <!-- Hidden fields updated by our controller -->
+                <%= f.hidden_field :start_date, data: { datepicker_target: "startDate" } %>
+                <%= f.hidden_field :end_date, data: { datepicker_target: "endDate" } %>
+              </div>
             </div>
-          </div>
 
-          <div class="mb-3">
-            <p class="mb-1"><strong>Booking Total:</strong></p>
-            <p data-booking-total>Select dates to see the total price</p>
-          </div>
+            <div class="pokemon-form-group">
+              <p class="pokemon-form-label">BOOKING TOTAL:</p>
+              <p data-booking-total class="pokemon-price">Select dates to see the total price</p>
+            </div>
 
-          <%= f.button :submit, "Request Booking", class: "btn btn-primary w-100" %>
-        <% end %>
+            <%= f.button :submit, "CATCH THIS CREATURE", class: "pokemon-button catch w-100" %>
+          <% end %>
+
+          <div class="mt-4 text-center">
+            <%= link_to "GO BACK", creature_path(@creature), class: "pokemon-button back" %>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="mt-3">
-      <%= link_to "Back to Creature", creature_path(@creature), class: "btn btn-secondary" %>
     </div>
   </div>
 </div>

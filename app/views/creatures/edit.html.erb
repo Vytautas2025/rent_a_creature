@@ -1,11 +1,23 @@
-<h1>Edit Creature</h1>
+<div class="container my-5">
+  <div class="pokemon-page-header">
+    <h1 class="text-center mb-4">EDIT CREATURE</h1>
+  </div>
 
+  <div class="row justify-content-center">
+    <div class="col-lg-10 col-xl-10 mb-4 d-flex justify-content-center">
+      <div class="pokemon-detail-card">
+        <div class="pokemon-card-header">
+          <h3>EDIT DETAILS</h3>
+        </div>
 
+        <div class="pokemon-content">
+          <%= render "shared/form" %>
+        </div>
 
-<%= simple_form_for @creature do |f| %>
-  <%= f.input :description %>
-  <%= f.input :available, as: :boolean, label: "Available?" %>
-  <%= f.input :price %>
-  <%= f.hidden_field :user_id, value: current_user.id %>
-  <%= f.button :submit, "Update Creature" %>
-<% end %>
+        <div class="pokemon-actions">
+          <%= link_to "GO BACK", creature_path(@creature), class: "pokemon-button back" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
