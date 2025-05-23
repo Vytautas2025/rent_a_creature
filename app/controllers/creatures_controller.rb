@@ -12,13 +12,15 @@ class CreaturesController < ApplicationController
 
   def show
     @creature = Creature.find(params[:id])
-    @markers = [
-      {
+
+    # Generate the marker with the creature's image URL
+    @markers = [{
       lat: @creature.latitude,
       lng: @creature.longitude,
-      info_window_html: render_to_string(partial: "info_window", locals: { creature: @creature })
-      }
-    ]
+      info_window_html: render_to_string(partial: "info_window", locals: { creature: @creature }),
+      # Add the creature image URL to the marker data
+      image_url: @creature.photo.attached? ? helpers.cl_image_path(@creature.photo.key, secure: true) : nil
+    }]
   end
 
   def new

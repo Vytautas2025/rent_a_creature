@@ -1,13 +1,280 @@
-.form-container {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  // justify-content: center;
+.pokemon-form-container {
+  background-image: image-url("golden-border.PNG");
+  background-size: cover;
+  background-position: center;
+  border-radius: 15px;
+  border: 4px solid #ffcb05;
+  outline: 2px solid #2a75bb;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+  overflow: hidden;
+  padding: 20px;
   width: 100%;
-  min-height: 100vh;
+  max-width: 600px;
+  margin: 0 auto 25px;
 }
 
-.form-container .new {
-  width: 600px;
-  margin: 0 20px;
+.pokemon-form-header {
+  background-color: #2a75bb;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  border-radius: 10px;
+  margin: 0 0 20px;
+  border: 3px solid #ffcb05;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.pokemon-form-header h1 {
+  margin: 0;
+  font-family: 'Press Start 2P', 'Montserrat', Arial, sans-serif;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 0 rgba(0,0,0,0.3);
+}
+
+.pokemon-form-group {
+  margin-bottom: 15px;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 15px;
+  border-radius: 8px;
+  border: 2px solid #ffcb05;
+}
+
+.pokemon-form-label {
+  font-family: 'Press Start 2P', 'Montserrat', Arial, sans-serif;
+  font-size: 0.8rem;
+  color: #2a75bb;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.pokemon-form-control {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #2a75bb;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  font-size: 0.9rem;
+}
+
+.pokemon-form-control:focus {
+  border-color: #ffcb05;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 203, 5, 0.3);
+}
+
+.pokemon-form-submit {
+  font-family: 'Press Start 2P', 'Montserrat', Arial, sans-serif;
+  display: block;
+  width: 100%;
+  padding: 12px;
+  background-color: #e53935;
+  color: white;
+  border: 3px solid #7f0000;
+  border-radius: 8px;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  margin-top: 20px;
+  box-shadow: 0 5px 0 rgba(0,0,0,0.2);
+}
+
+.pokemon-form-submit:hover {
+  background-color: #d32f2f;
+}
+
+.pokemon-form-submit:active {
+  transform: translateY(3px);
+  box-shadow: 0 2px 0 rgba(0,0,0,0.2);
+}
+
+.flatpickr-calendar {
+  border: 3px solid #ffcb05 !important;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3) !important;
+}
+
+.flatpickr-day.selected {
+  background: #2a75bb !important;
+  border-color: #2a75bb !important;
+}
+
+.flatpickr-day.selected:hover {
+  background: #1a65ab !important;
+}
+
+.flatpickr-day:hover {
+  background: #ffcb05 !important;
+  color: #333 !important;
+}
+
+// Add this if not already present
+.form-page-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 100px);
+  padding: 30px 0;
+}
+
+// Make sure flatpickr inputs match Pokemon style
+.flatpickr-input.pokemon-form-control {
+  background-color: #f9f9f9;
+  border: 2px solid #2a75bb;
+  font-family: 'Press Start 2P', 'Montserrat', Arial, sans-serif;
+  font-size: 0.8rem;
+}
+
+// Style for the booking total
+p[data-booking-total] {
+  padding: 10px 15px;
+  background-color: #ffcb05;
+  color: #2a75bb;
+  font-weight: bold;
+  border-radius: 10px;
+  text-align: center;
+  border: 2px solid #2a75bb;
+  font-family: 'Press Start 2P', 'Montserrat', Arial, sans-serif;
+  font-size: 1rem;
+  box-shadow: inset 0 -3px 0 rgba(0,0,0,0.2);
+}
+
+// Add or update these styles in your _form.scss
+
+// Style for the creature info section in vertical layout
+.pokemon-creature-info {
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+  border: 2px solid #ffcb05;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.pokemon-detail-image-container {
+  height: 250px;
+  overflow: hidden;
+  border-bottom: 4px solid #ffcb05;
+}
+
+.date-helper-text {
+  display: block;
+  margin-top: 5px;
+  font-size: 0.75rem;
+  color: #666;
+  font-style: italic;
+}
+
+// Modify the form container for vertical layout
+.pokemon-form-container {
+  max-width: 600px;
+  margin: 0 auto 25px;
+}
+
+// Add this below your existing media query
+@media (min-width: 992px) {
+  .pokemon-form-container {
+    padding: 30px;
+    max-width: 600px; // Narrower for vertical layout
+  }
+}
+
+// Make the flatpickr calendar show just one month at a time
+.flatpickr-calendar {
+  width: 100% !important;
+  max-width: 320px !important;
+  margin: 0 auto !important;
+}
+
+.flatpickr-months .flatpickr-month {
+  background-color: #2a75bb !important;
+  color: white !important;
+}
+
+.flatpickr-current-month .flatpickr-monthDropdown-months {
+  font-family: 'Press Start 2P', 'Montserrat', Arial, sans-serif !important;
+  font-size: 0.8rem !important;
+}
+
+.flatpickr-weekdays {
+  background-color: #ffcb05 !important;
+}
+
+.flatpickr-weekday {
+  color: #2a75bb !important;
+  font-weight: bold !important;
+}
+
+.flatpickr-day.flatpickr-disabled,
+.flatpickr-day.flatpickr-disabled:hover {
+  background-color: #ffecb5 !important;
+  text-decoration: line-through;
+}
+
+// Improve container sizing on desktop
+@media (min-width: 992px) {
+  .pokemon-form-container {
+    padding: 30px;
+    max-width: 900px; // Wider container on desktop
+  }
+
+  // Make columns more balanced on desktop
+  .pokemon-form-container .row {
+    align-items: stretch;
+  }
+
+  // Better spacing for the creature details card
+  .pokemon-form-container .pokemon-detail-card {
+    height: 100%;
+    margin-bottom: 0;
+  }
+
+  // Improve form spacing
+  .pokemon-form-container .col-md-7 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 30px;
+  }
+
+  // Make sure the form buttons don't get too wide
+  .pokemon-form-container .pokemon-button {
+    max-width: 350px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+// Improve calendar appearance
+.flatpickr-calendar {
+  width: 100% !important;
+  max-width: 320px !important;
+  margin: 0 auto !important;
+}
+
+// Add spacing between form group elements
+.pokemon-form-group + .pokemon-form-group {
+  margin-top: 20px;
+}
+
+// Add this CSS to fix the date picker input width
+
+// Make the flatpickr input take full width with proper spacing
+input.pokemon-form-control {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+// Reduce font size for better display of dates
+input.pokemon-form-control.flatpickr-input {
+  font-size: 0.75rem; // Smaller font for dates
+  font-family: 'Press Start 2P', 'Montserrat', Arial, sans-serif;
+  letter-spacing: -0.5px; // Slightly tighten letter spacing
+  width: 100%;
+}
+
+// Fix any odd flatpickr width issues
+.flatpickr-wrapper {
+  width: 100%;
 }

@@ -7,14 +7,18 @@
       </div>
       <div class="row my-3 justify-content-center">
         <% @creatures.each do |creature| %>
-          <div class="col-12 col-sm-6 col-md-4 mb-4" style="max-width: 350px;">
+          <div class="col-12 col-sm-6 col-md-4 mb-4 pokemon-card-container">
             <%= link_to creature_path(creature), class: "clickable-container" do %>
-              <div class="card">
-                <%= image_tag cl_image_path(creature.photo.key, secure: true), class: "card-image" if creature.photo.attached? %>
-                <div class="card-content">
-                  <h3 class="card-name"><%= creature.name %></h3>
-                  <p class="card-description"><%= creature.description %></p>
-                  <p class="card-price">Price: $<%= creature.price %> per day</p>
+              <div class="pokemon-card">
+                <div class="pokemon-card-image-container">
+                  <%= image_tag cl_image_path(creature.photo.key, secure: true), class: "card-image" if creature.photo.attached? %>
+                </div>
+                <div class="pokemon-card-content">
+                  <h3 class="pokemon-card-name"><%= creature.name %></h3>
+                  <p class="pokemon-card-description"><%= creature.description %></p>
+                  <div class="pokemon-card-price">
+                    <span>$<%= creature.price %><small>/day</small></span>
+                  </div>
                 </div>
               </div>
             <% end %>

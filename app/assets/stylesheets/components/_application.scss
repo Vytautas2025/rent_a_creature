@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
 body::before {
   content: "";
   position: fixed;
@@ -17,12 +19,11 @@ body::before {
   font-family: 'Pokemon  Hollow';
   src: url('https://www.fontsaddict.com/fontface/pokemon-hollow.TTF');
 }
-	
 
-.home-title h1, h2 {
-  font-family: 'Pokemon  Hollow', 'Montserrat', Arial, sans-serif;
+
+.home-title h1, .home-title h2 {
+  font-family: 'Pokemon Hollow', 'Press Start 2P', Arial, sans-serif;
   font-weight: 700;
-  font-size: 6em;
   color: #ffcc02;
   text-align: center;
   line-height: 1.2;
@@ -30,5 +31,23 @@ body::before {
   -webkit-overflow-scrolling: touch;
   -webkit-text-stroke-width: 0.05em;
   -webkit-text-stroke-color: #255a90;
-  text-shadow: -0.05em 0.1em 0.15em #1b285f;
+  text-shadow: 4px 4px 0px #255a90;
+}
+
+.home-title h1 {
+  font-size: 3.5rem;
+}
+
+.home-title h2 {
+  font-size: 2.5rem;
+}
+
+@media (max-width: 768px) {
+  .home-title h1 {
+    font-size: 2.5rem;
+  }
+
+  .home-title h2 {
+    font-size: 1.8rem;
+  }
 }

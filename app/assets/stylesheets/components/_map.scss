@@ -1,18 +1,185 @@
+/* Pokemon-style map controls */
+.pokemon-map-controls {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.pokemon-map-button {
+  font-family: 'Press Start 2P', 'Montserrat', Arial, sans-serif;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  border: 3px solid;
+  position: relative;
+  box-shadow: 0 4px 0 rgba(0,0,0,0.2);
+  transition: all 0.15s ease;
+}
+
+.pokemon-map-button:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 rgba(0,0,0,0.2);
+}
+
+.pokemon-map-button.reset {
+  background-color: #eb4034;
+  color: white;
+  border-color: #7f0000;
+  font-size: 8px;
+  background-image: url('https://archives.bulbagarden.net/media/upload/3/39/Pok%C3%A9_Ball_artwork.png');
+  background-size: 80%;
+  background-repeat: no-repeat;
+  background-position: center;
+  text-indent: -9999px;
+}
+
+.pokemon-map-button.zoom-in {
+  background-color: #43b047;
+  color: white;
+  border-color: #2f7d32;
+}
+
+.pokemon-map-button.zoom-out {
+  background-color: #ffeb3b;
+  color: #333;
+  border-color: #c8a700;
+}
+
+/* Hide default map controls */
+.mapboxgl-ctrl-top-left,
+.mapboxgl-ctrl-top-right,
+.mapboxgl-ctrl-bottom-left,
+.mapboxgl-ctrl-bottom-right {
+  display: none !important;
+}
+
+/* Pokeball marker styling */
+.pokeball-marker-container {
+  width: 40px;
+  height: 40px;
+  position: relative;
+  transform-origin: bottom center;
+  animation: marker-bounce 1s ease-in-out infinite alternate;
+}
+
+.pokeball-top {
+  position: absolute;
+  width: 36px;
+  height: 18px;
+  background-color: #e53935;
+  border: 2px solid #000;
+  border-bottom: none;
+  border-radius: 18px 18px 0 0;
+  top: 0;
+  left: 0;
+}
+
+.pokeball-bottom {
+  position: absolute;
+  width: 36px;
+  height: 18px;
+  background-color: white;
+  border: 2px solid #000;
+  border-top: none;
+  border-radius: 0 0 18px 18px;
+  bottom: 0;
+  left: 0;
+}
+
+.pokeball-center {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background-color: white;
+  border: 2px solid #000;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+}
+
+/* Style the popup to match Pokemon theme */
 .mapboxgl-popup {
   max-width: 200px;
 }
 
 .mapboxgl-popup-content {
-  background-color: rgba(40, 40, 40, 0.9) !important;
-  color: wheat !important;
-  text-align: center;
-  font-family: "Open Sans", sans-serif;
-  h2 {
-    font-weight: 900;
-  }
+  border-radius: 10px !important;
+  border: 3px solid #ffcb05 !important;
+  background-color: #2a75bb !important;
+  color: white !important;
+  font-family: 'Press Start 2P', 'Montserrat', Arial, sans-serif !important;
+  font-size: 0.8rem !important;
+  padding: 15px !important;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3) !important;
 }
 
 .mapboxgl-popup-close-button {
   color: white !important;
   font-size: 16px !important;
+  font-weight: bold !important;
+}
+
+/* Style for creature image marker - increase size */
+.creature-marker {
+  width: 80px; /* Increase from 60px */
+  height: 80px; /* Increase from 60px */
+  background-size: cover;
+  background-position: center;
+  border-radius: 50%;
+  border: 6px solid #ffcb05; /* Thicker border to match larger size */
+  outline: 3px solid #2a75bb;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.5);
+  transform-origin: bottom center;
+  animation: marker-bounce 1.2s ease-in-out infinite alternate;
+  z-index: 10;
+  overflow: hidden;
+}
+
+/* Shadow underneath the marker for depth - increase to match larger marker */
+.creature-marker::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px; /* Wider shadow for bigger marker */
+  height: 12px; /* Taller shadow */
+  background: rgba(0,0,0,0.3);
+  border-radius: 50%;
+  filter: blur(3px);
+  z-index: -1;
+}
+
+/* Remove any default marker circles */
+.mapboxgl-marker svg {
+  display: none !important;
+}
+
+/* Fix any stray circles that might appear */
+.mapboxgl-user-location-dot,
+.mapboxgl-user-location-accuracy-circle {
+  display: none !important;
+}
+
+/* Make map popups stand out better against the marker */
+.mapboxgl-popup {
+  z-index: 20;
+}
+
+/* Create better separation between popup and marker */
+.mapboxgl-popup-tip {
+  border-top-color: #ffcb05 !important;
+  border-width: 10px !important;
 }
