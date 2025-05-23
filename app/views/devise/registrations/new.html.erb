@@ -1,25 +1,70 @@
-<h2>Sign up</h2>
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-md-10">
+      <div class="pokemon-form-container">
+        <div class="pokemon-form-header">
+          <h1>BECOME A TRAINER</h1>
+        </div>
 
-<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= f.error_notification %>
+        <div class="pokemon-form-body">
+          <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+            <% if resource.errors.any? %>
+              <div class="pokemon-form-errors mb-4">
+                <h3><%= pluralize(resource.errors.count, "error") %> prevented sign up:</h3>
+                <ul>
+                  <% resource.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
 
-  <div class="form-inputs">
-    <%= f.input :email,
-                required: true,
-                autofocus: true,
-                input_html: { autocomplete: "email" }%>
-    <%= f.input :password,
-                required: true,
-                hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
-                input_html: { autocomplete: "new-password" } %>
-    <%= f.input :password_confirmation,
-                required: true,
-                input_html: { autocomplete: "new-password" } %>
+            <div class="pokemon-form-group">
+              <%= f.label :email, class: 'pokemon-form-label' do %>
+                EMAIL <span class="required-indicator">*</span>
+              <% end %>
+              <%= f.input_field :email,
+                          required: true,
+                          autofocus: true,
+                          class: 'pokemon-form-control',
+                          input_html: { autocomplete: "email" } %>
+            </div>
+
+            <div class="pokemon-form-group">
+              <%= f.label :password, class: 'pokemon-form-label' do %>
+                PASSWORD <span class="required-indicator">*</span>
+                <small>(<%= @minimum_password_length %> characters minimum)</small>
+              <% end %>
+              <%= f.input_field :password,
+                          required: true,
+                          class: 'pokemon-form-control',
+                          input_html: { autocomplete: "new-password" } %>
+            </div>
+
+            <div class="pokemon-form-group">
+              <%= f.label :password_confirmation, class: 'pokemon-form-label' do %>
+                CONFIRM PASSWORD <span class="required-indicator">*</span>
+              <% end %>
+              <%= f.input_field :password_confirmation,
+                          required: true,
+                          class: 'pokemon-form-control',
+                          input_html: { autocomplete: "new-password" } %>
+            </div>
+
+            <%= f.submit "SIGN UP", class: "pokemon-form-submit mt-4" %>
+
+            <div class="mt-4 text-center">
+              <%= link_to "GO BACK", root_path, class: "pokemon-button back" %>
+            </div>
+          <% end %>
+
+          <div class="pokemon-links mt-4">
+            <%- if controller_name != 'sessions' %>
+              <%= link_to "Already have an account? Log in", new_session_path(resource_name), class: "pokemon-link" %><br />
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <div class="form-actions">
-    <%= f.button :submit, "Sign up" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>
