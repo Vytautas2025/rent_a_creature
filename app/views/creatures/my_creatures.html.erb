@@ -33,6 +33,10 @@
               <%= link_to "VIEW DETAILS", creature_path(creature), class: "pokemon-button info" %>
               <%= link_to "EDIT", edit_creature_path(creature), class: "pokemon-button edit" %>
               <%= link_to "MANAGE BOOKINGS", manage_bookings_creature_path(creature), class: "pokemon-button manage" %>
+              <%= link_to creature_path(creature), data: { turbo_method: :delete, turbo_confirm: 'Delete this creature?'}, class: "delete-icon" do %>
+                <%# <i class="fa-sharp-duotone fa-regular fa-trash-can"></i> %>
+                <i class="fa-duotone fa-solid fa-trash fa-2x"></i>
+              <% end %>
             </div>
           </div>
         </div>

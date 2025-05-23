@@ -42,7 +42,16 @@
           <% else %>
             <%= link_to "Please sign in to book this creature.", new_user_session_path, class: "pokemon-alert info" %>
           <% end %>
+
+          <div>
+            <% if @creature.user == current_user %>
+              <%= link_to "Delete", creature_path(@creature), data: { turbo_method: :delete, turbo_confirm: 'Delete this creature?'}, class: "pokemon-button edit" %>
+            <% end %>
+          </div>
         </div>
+
+        <!-- Delete buttons -->
+
       </div>
     </div>
   </div>

@@ -84,3 +84,13 @@
   padding: 3px;
   filter: invert(100%);
 }
+
+.delete-icon {
+  position: relative;
+  i {
+    position: absolute;
+    top: 6px;
+    // color: #3F76BD;
+    color: #5CA6F7;
+  }
+}
