@@ -11,7 +11,7 @@
             <%= link_to creature_path(creature), class: "clickable-container" do %>
               <div class="pokemon-card">
                 <div class="pokemon-card-image-container">
-                  <%= image_tag cl_image_path(creature.photo.key, secure: true), class: "card-image" if creature.photo.attached? %>
+                  <%= cl_image_tag creature.photo.key, class: "card-image" if creature.photo.attached? %>
                 </div>
                 <div class="pokemon-card-content">
                   <h3 class="pokemon-card-name"><%= creature.name %></h3>
