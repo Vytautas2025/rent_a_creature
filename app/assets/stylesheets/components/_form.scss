@@ -278,3 +278,107 @@ input.pokemon-form-control.flatpickr-input {
 .flatpickr-wrapper {
   width: 100%;
 }
+
+// Pokemon-style radio buttons
+.pokemon-toggle-container {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.pokemon-radio-group {
+  display: flex;
+  gap: 15px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.pokemon-radio-input {
+  display: none;
+}
+
+.pokemon-radio-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  font-family: 'Press Start 2P', 'Montserrat', Arial, sans-serif;
+  font-size: 0.8rem;
+  padding: 10px 15px;
+  text-align: center;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 0 rgba(0,0,0,0.2);
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+  border: 3px solid;
+  position: relative;
+  overflow: hidden;
+  opacity: 0.7; /* Make all buttons dimmer by default */
+}
+
+/* Hover effect for unselected buttons */
+.pokemon-radio-label:hover {
+  opacity: 0.9;
+  transform: translateY(1px);
+  box-shadow: 0 3px 0 rgba(0,0,0,0.2);
+}
+
+.pokemon-radio-label:before {
+  content: "";
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  right: -3px;
+  height: 6px;
+  background: rgba(255,255,255,0.3);
+  border-radius: 8px 8px 0 0;
+}
+
+.pokemon-radio-label.available {
+  background-color: #43b047;
+  color: white;
+  border-color: #2f7d32;
+}
+
+.pokemon-radio-label.unavailable {
+  background-color: #e53935;
+  color: white;
+  border-color: #b71c1c;
+}
+
+.poke-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #ffcb05;
+  margin-right: 8px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  box-shadow: 0 0 4px 1px rgba(255, 203, 5, 0.7);
+}
+
+/* Enhanced selected state styling */
+.pokemon-radio-input:checked + .pokemon-radio-label {
+  opacity: 1; /* Full opacity for selected button */
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 rgba(0,0,0,0.2);
+  font-weight: bold;
+}
+
+.pokemon-radio-input:checked + .pokemon-radio-label .poke-dot {
+  opacity: 1;
+  animation: pulse 1.5s infinite;
+}
+
+/* Add pulsing animation for the selected dot */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 203, 5, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 6px rgba(255, 203, 5, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 203, 5, 0);
+  }
+}
