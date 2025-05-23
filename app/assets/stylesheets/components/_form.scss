@@ -382,3 +382,74 @@ input.pokemon-form-control.flatpickr-input {
     box-shadow: 0 0 0 0 rgba(255, 203, 5, 0);
   }
 }
+
+/* Pokemon-styled file input - updated */
+.pokemon-file-input-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pokemon-file-controls {
+  display: flex;
+  align-items: center;
+}
+
+.pokemon-file-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Press Start 2P', 'Montserrat', Arial, sans-serif;
+  font-size: 0.8rem;
+  padding: 10px 15px;
+  background-color: #ffcb05;
+  color: #2a75bb;
+  border: 3px solid #2a75bb;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 0 rgba(0,0,0,0.2);
+  text-shadow: 1px 1px 0px rgba(255,255,255,0.3);
+  position: relative;
+  overflow: hidden;
+  font-weight: bold;
+}
+
+.pokemon-file-button:hover {
+  background-color: #ffd74d;
+  transform: translateY(1px);
+  box-shadow: 0 3px 0 rgba(0,0,0,0.2);
+}
+
+.pokemon-file-button:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 rgba(0,0,0,0.2);
+}
+
+.pokemon-file-name {
+  font-family: 'Press Start 2P', 'Montserrat', Arial, sans-serif;
+  font-size: 0.75rem;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border: 2px solid #2a75bb;
+  border-radius: 5px;
+  color: #2a75bb;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  text-align: center;
+}
+
+/* Form location map */
+.form-location-map {
+  height: 200px;
+  width: 100%;
+  border: 3px solid #ffcb05;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.pokemon-map-container {
+  transition: all 0.3s ease;
+}

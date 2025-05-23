@@ -12,14 +12,34 @@
   <div class="pokemon-form-group pokemon-address-container" data-controller="address-autocomplete" data-address-autocomplete-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
     <%= f.label :address, class: 'pokemon-form-label' %>
     <%= f.input_field :address,
-        class: 'pokemon-form-control d-none',
+        class: 'pokemon-form-control',
         data: {address_autocomplete_target: "address"}
     %>
+
+    <!-- Map container that will show once address is selected -->
+    <div class="pokemon-map-container mt-3 d-none" data-address-autocomplete-target="mapContainer">
+      <div
+        class="form-location-map"
+        data-controller="map"
+        data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>"
+        data-map-markers-value="[]"
+        data-map-options-value='{"disableSearchBox": true}'
+        data-address-autocomplete-target="map">
+      </div>
+    </div>
   </div>
 
   <div class="pokemon-form-group">
     <%= f.label :photo, class: 'pokemon-form-label' %>
-    <%= f.input_field :photo, as: :file, class: 'pokemon-form-control' %>
+    <div class="pokemon-file-input-wrapper" data-controller="file-input">
+      <div class="pokemon-file-controls">
+        <label for="creature_photo" class="pokemon-file-button">
+          CHOOSE FILE
+        </label>
+      </div>
+      <div class="pokemon-file-name" data-file-input-target="filename">No file chosen</div>
+      <%= f.input_field :photo, as: :file, class: 'pokemon-form-control d-none', id: 'creature_photo', data: {file_input_target: "input"} %>
+    </div>
   </div>
 
   <div class="pokemon-form-group">
