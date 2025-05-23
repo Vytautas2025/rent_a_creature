@@ -100,7 +100,9 @@ export default class extends Controller {
     resetButton.className = 'pokemon-map-button reset'
     resetButton.innerHTML = 'Reset'
     resetButton.title = 'Return to starting view'
-    resetButton.addEventListener('click', () => {
+    resetButton.type = "button" // Add this line to prevent form submission
+    resetButton.addEventListener('click', (e) => {
+      e.preventDefault() // Prevent any default action
       // Instead of using bounds, fly to the initial marker at a fixed zoom
       if (this.initialCenter) {
         this.map.flyTo({
@@ -116,7 +118,9 @@ export default class extends Controller {
     zoomInButton.className = 'pokemon-map-button zoom-in'
     zoomInButton.innerHTML = '+'
     zoomInButton.title = 'Zoom in'
-    zoomInButton.addEventListener('click', () => {
+    zoomInButton.type = "button" // Add this line to prevent form submission
+    zoomInButton.addEventListener('click', (e) => {
+      e.preventDefault() // Prevent any default action
       this.map.zoomIn()
     })
 
@@ -125,7 +129,9 @@ export default class extends Controller {
     zoomOutButton.className = 'pokemon-map-button zoom-out'
     zoomOutButton.innerHTML = '-'
     zoomOutButton.title = 'Zoom out'
-    zoomOutButton.addEventListener('click', () => {
+    zoomOutButton.type = "button" // Add this line to prevent form submission
+    zoomOutButton.addEventListener('click', (e) => {
+      e.preventDefault() // Prevent any default action
       this.map.zoomOut()
     })
 

@@ -1,19 +1,37 @@
 <%= simple_form_for (@creature) do |f| %>
+  <% if @creature.errors.any? %>
+    <div class="pokemon-form-errors mb-4">
+      <h3><%= pluralize(@creature.errors.count, "error") %> prevented this creature from being saved:</h3>
+      <ul>
+        <% @creature.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
   <div class="pokemon-form-group">
-    <%= f.label :name, class: 'pokemon-form-label' %>
-    <%= f.input_field :name, class: 'pokemon-form-control' %>
+    <%= f.label :name, class: 'pokemon-form-label' do %>
+      NAME <span class="required-indicator">*</span>
+    <% end %>
+    <%= f.input_field :name, class: 'pokemon-form-control', required: true %>
   </div>
 
   <div class="pokemon-form-group">
-    <%= f.label :description, class: 'pokemon-form-label' %>
-    <%= f.input_field :description, as: :text, class: 'pokemon-form-control' %>
+    <%= f.label :description, class: 'pokemon-form-label' do %>
+      DESCRIPTION <span class="required-indicator">*</span>
+    <% end %>
+    <%= f.input_field :description, as: :text, class: 'pokemon-form-control', required: true %>
   </div>
 
   <div class="pokemon-form-group pokemon-address-container" data-controller="address-autocomplete" data-address-autocomplete-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
-    <%= f.label :address, class: 'pokemon-form-label' %>
+    <%= f.label :address, class: 'pokemon-form-label' do %>
+      ADDRESS <span class="required-indicator">*</span>
+    <% end %>
     <%= f.input_field :address,
         class: 'pokemon-form-control',
-        data: {address_autocomplete_target: "address"}
+        data: {address_autocomplete_target: "address"},
+        required: true
     %>
 
     <!-- Map container that will show once address is selected -->
@@ -22,7 +40,13 @@
         class="form-location-map"
         data-controller="map"
         data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>"
-        data-map-markers-value="<%= @creature.address.present? ? [{lat: @creature.latitude, lng: @creature.longitude, info_window_html: @creature.address}].to_json : '[]' %>"
+        data-map-markers-value="<%= @creature.address.present? ?
+          [{
+            lat: @creature.latitude,
+            lng: @creature.longitude,
+            info_window_html: @creature.address,
+            image_url: @creature.photo.attached? ? cl_image_path(@creature.photo.key, secure: true) : nil
+          }].to_json : '[]' %>"
         data-map-options-value='{"disableSearchBox": true}'
         data-address-autocomplete-target="map">
       </div>
@@ -30,7 +54,9 @@
   </div>
 
   <div class="pokemon-form-group">
-    <%= f.label :photo, class: 'pokemon-form-label' %>
+    <%= f.label :photo, class: 'pokemon-form-label' do %>
+      PHOTO <span class="required-indicator">*</span>
+    <% end %>
     <% if @creature.persisted? && @creature.photo.attached? %>
       <div class="current-photo-container mb-3">
         <p class="mb-2"><strong>Current Photo:</strong></p>
@@ -44,15 +70,23 @@
         </label>
       </div>
       <div class="pokemon-file-name" data-file-input-target="filename">No file chosen</div>
-      <%= f.input_field :photo, as: :file, class: 'pokemon-form-control d-none', id: 'creature_photo', data: {file_input_target: "input"} %>
+      <%= f.input_field :photo, as: :file, class: 'pokemon-form-control d-none', id: 'creature_photo', data: {file_input_target: "input"}, required: !(@creature.persisted? && @creature.photo.attached?) %>
     </div>
   </div>
 
   <div class="pokemon-form-group">
+    <%= f.label :price, class: 'pokemon-form-label' do %>
+      PRICE <span class="required-indicator">*</span>
+    <% end %>
+    <%= f.input_field :price, class: 'pokemon-form-control', min: 0, step: 0.01, required: true %>
+  </div>
+
+  <!-- Rest of form remains the same -->
+  <div class="pokemon-form-group">
     <%= f.label :available, class: 'pokemon-form-label' %>
     <div class="pokemon-toggle-container mt-2">
       <div class="pokemon-radio-group">
-        <%= f.radio_button :available, true, class: 'pokemon-radio-input', id: 'available-true' %>
+        <%= f.radio_button :available, true, class: 'pokemon-radio-input', id: 'available-true', checked: @creature.available.nil? ? true : @creature.available %>
         <label for="available-true" class="pokemon-radio-label available">
           <span class="poke-dot"></span>
           AVAILABLE
@@ -65,11 +99,6 @@
         </label>
       </div>
     </div>
-  </div>
-
-  <div class="pokemon-form-group">
-    <%= f.label :price, class: 'pokemon-form-label' %>
-    <%= f.input_field :price, class: 'pokemon-form-control', min: 0, step: 0.01 %>
   </div>
 
   <%= f.submit @creature.new_record? ? "CREATE CREATURE" : "UPDATE CREATURE", class: "pokemon-form-submit mt-4" %>
