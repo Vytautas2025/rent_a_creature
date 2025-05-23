@@ -69,7 +69,8 @@
   height: 40px;
   position: relative;
   transform-origin: bottom center;
-  animation: marker-bounce 1s ease-in-out infinite alternate;
+  /* Remove the animation to stop the bouncing */
+  animation: none;
 }
 
 .pokeball-top {
@@ -131,35 +132,23 @@
   font-weight: bold !important;
 }
 
-/* Style for creature image marker - increase size */
+/* Creature marker styling - emptied as per request */
 .creature-marker {
-  width: 80px; /* Increase from 60px */
-  height: 80px; /* Increase from 60px */
+  width: 80px;
+  height: 80px;
   background-size: cover;
   background-position: center;
-  border-radius: 50%;
-  border: 6px solid #ffcb05; /* Thicker border to match larger size */
-  outline: 3px solid #2a75bb;
-  box-shadow: 0 6px 12px rgba(0,0,0,0.5);
-  transform-origin: bottom center;
-  animation: marker-bounce 1.2s ease-in-out infinite alternate;
-  z-index: 10;
-  overflow: hidden;
+  animation: none;
+  transform: none;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  outline: none;
 }
 
-/* Shadow underneath the marker for depth - increase to match larger marker */
+/* Remove the shadow effect */
 .creature-marker::after {
-  content: "";
-  position: absolute;
-  bottom: -8px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 60px; /* Wider shadow for bigger marker */
-  height: 12px; /* Taller shadow */
-  background: rgba(0,0,0,0.3);
-  border-radius: 50%;
-  filter: blur(3px);
-  z-index: -1;
+  display: none;
 }
 
 /* Remove any default marker circles */
