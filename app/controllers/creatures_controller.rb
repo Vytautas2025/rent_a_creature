@@ -61,6 +61,8 @@ class CreaturesController < ApplicationController
   end
 
   def destroy
+    authenticate_user!
+
     @creature = Creature.find(params[:id])
     @creature.destroy
     redirect_to my_creatures_path, status: :see_other
