@@ -33,39 +33,30 @@
 }
 
 .search-section.w-50 input[type="text"]::placeholder {
-  color: #FFCC00;
+  color: #2a75bb;
   font-style: italic;
 }
 
 .search-section.w-50 .search-btn {
-  background-image: url('pokeball-icon.png'); /* I gotta change this ball after pulling the new details so i can use the ball image */
-  background-size: contain;
-  background-repeat: no-repeat;
-  width: 50px;
-  height: 50px;
-  border: none;
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
+  background-color: #FFCC00;
+  color: #2a75bb;
+  font-family: 'Pokemon Solid', sans-serif;
+  border: 3px solid #2a75bb;
+  border-radius: 25px;
+  padding: 10px 20px;
+  font-size: 16px;
+  text-transform: uppercase;
   cursor: pointer;
+  transition: all 0.3s ease;
+  margin-left: 10px; 
+  box-shadow: 0 4px #2a75bb;
 }
 
-.search-section.w-50 .search-btn:active {
-  animation: bounce 0.2s ease;
-}
-
-@keyframes bounce {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-5px); }
-  100% { transform: translateY(0); }
-}
-
-.search-section.w-50 input[type="text"] {
-  background-image: url('pikachu-icon.png');
-  background-position: 10px center;
-  background-repeat: no-repeat;
-  padding-left: 40px; /* Adjust to fit icon */
+.search-section.w-50 .search-btn:hover {
+  background-color: #fff;
+  color: #FF0000;
+  border-color: #FF0000;
+  box-shadow: 0 4px #FF0000;
 }
 
 .search-section.w-50 input[type="text"] {
@@ -77,18 +68,8 @@
 }
 
 .search-section.w-50 input[type="text"]::placeholder {
-  color: #FFCC00;
+  color: #2a75bb;
   font-style: italic;
   font-family: 'Pokemon Solid', sans-serif;
   font-size: 18px;
-}
-
-.search-section.w-50 .search-btn:active {
-  animation: evolve 0.5s ease-in-out;
-}
-
-@keyframes evolve {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.1); }
-  100% { transform: scale(1); }
 }
