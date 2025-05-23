@@ -24,33 +24,12 @@
     <%= f.input_field :description, as: :text, class: 'pokemon-form-control', required: true %>
   </div>
 
-  <div class="pokemon-form-group pokemon-address-container" data-controller="address-autocomplete" data-address-autocomplete-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
-    <%= f.label :address, class: 'pokemon-form-label' do %>
-      ADDRESS <span class="required-indicator">*</span>
-    <% end %>
-    <%= f.input_field :address,
-        class: 'pokemon-form-control',
-        data: {address_autocomplete_target: "address"},
-        required: true
-    %>
+  <%= f.input :address,
+    input_html: {data: {address_autocomplete_target: "address"}, class: "d-none"},
+    wrapper_html: {data: {controller: "address-autocomplete", address_autocomplete_api_key_value: ENV["MAPBOX_API_KEY"]}}
+  %>
 
-    <!-- Map container that will show once address is selected -->
-    <div class="pokemon-map-container mt-3 <%= @creature.address.present? ? '' : 'd-none' %>" data-address-autocomplete-target="mapContainer">
-      <div
-        class="form-location-map"
-        data-controller="map"
-        data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>"
-        data-map-markers-value="<%= @creature.address.present? ?
-          [{
-            lat: @creature.latitude,
-            lng: @creature.longitude,
-            info_window_html: @creature.address,
-            image_url: @creature.photo.attached? ? cl_image_path(@creature.photo.key, secure: true) : nil
-          }].to_json : '[]' %>"
-        data-map-options-value='{"disableSearchBox": true}'
-        data-address-autocomplete-target="map">
-      </div>
-    </div>
+
   </div>
 
   <div class="pokemon-form-group">
