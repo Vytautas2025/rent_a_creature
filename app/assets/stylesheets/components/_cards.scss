@@ -1,22 +1,47 @@
-
 .card {
+    position: relative;
+    aspect-ratio: 3/4;
     background-image: image-url("golden-border.PNG");
     background-size: cover;
-    background-repeat: no-repeat;
     background-position: center;
-    border-radius: 10px;
+    border-radius: 8px;
+    overflow: hidden;
+    height: 100%;
+    max-height: 500px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     padding: 30px;
     transition: transform 0.2s;
     margin-bottom: 20px;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
     opacity: 1;
 }
 
 .card:hover {
     transform: scale(1.05);
+}
+
+.card-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 15px;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0));
+    color: white;
+}
+
+.card-name {
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+}
+
+.card-description {
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+}
+
+.card-price {
+    font-size: 1rem;
+    font-weight: bold;
 }
 
 .card-header {
@@ -39,6 +64,8 @@
 .card-image {
     width: 100%;
     height: auto;
+    object-fit: cover;
+    max-height: 300px;
     border-radius: 10px 10px 0 0;
 }
 
@@ -49,4 +76,44 @@
 
 .card-link:hover {
     text-decoration: underline;
+}
+
+.clickable-container {
+    display: block;
+    height: 100%;
+    text-decoration: none;
+    color: inherit;
+}
+
+.clickable-container:hover .card {
+    transform: scale(1.03);
+    transition: transform 0.3s ease;
+}
+
+@media (max-width: 767px) {
+  .card {
+    max-height: 450px;
+  }
+
+  .card-image {
+    max-height: 250px;
+  }
+}
+
+@media (max-width: 575px) {
+  .card {
+    max-height: 400px;
+  }
+
+  .card-image {
+    max-height: 200px;
+  }
+}
+
+.row.my-3 {
+  justify-content: center;
+}
+
+.row.my-3 > div {
+  max-width: 350px;
 }
